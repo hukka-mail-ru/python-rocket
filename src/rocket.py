@@ -3,7 +3,7 @@ import math
 
 MIN_THROTTLE = 0   # percent
 MAX_THROTTLE = 100 # percent
-GRAVITY = -9.8 # m/s^2
+GRAVITY = -9.8 # G, m/s^2
 
 class Rocket():
     
@@ -12,7 +12,7 @@ class Rocket():
 
         self.mass = 1500 # kg
         self.fuelMass = 100 # kg
-        self.maxAcceleration = 20 # m/s^2 at 100% throttle
+        self.maxAcceleration = 100 # m/s^2 at 100% throttle
         self.throttle = 0 # percent
         self.askedThrottle = 0 # percent
         self.a = 0 # actual acceleration, m/s^2
@@ -29,6 +29,12 @@ class Rocket():
      
     def getH(self):
         return  self.h   
+    
+    def getA(self):
+        return  self.a   
+    
+    def getV(self):
+        return  self.v  
 
     def tick(self):
         

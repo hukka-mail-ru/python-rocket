@@ -8,23 +8,48 @@ class Main:
    
     def start(self):
         pygame.init()
-        screen = pygame.display.set_mode((600, 600))
+        screen = pygame.display.set_mode((800, 600))
         done = False
         is_blue = True
         x = 30
-        y = 30
+        y = 30 
         
         r = rocket.Rocket();
-        r.askThrottle(70);
         
-        for x in range(0, 370):
-            time.sleep(0.1) 
+        for x in range(0, 100):
+            time.sleep(0.01) 
             print(x)
             r.tick()
-            
+                
+                        
             color = (255, 100, 0)
             pygame.draw.rect(screen, color, pygame.Rect(x, 100+-r.getH(), 1, 1))
             pygame.display.flip()
+            
+        for x in range(100, 800):
+            time.sleep(0.01) 
+            print(x)
+            r.tick()
+                        
+            if(r.getA() < 0):
+                if(r.getV() < -3):
+                    r.askThrottle(100)
+                else:
+                    r.askThrottle(0)
+                            
+            elif(r.getA() > 0):
+                if(r.getV() > -3):
+                    r.askThrottle(0)
+                else:
+                    r.askThrottle(100)  
+                    
+                
+                        
+            color = (255, 100, 0)
+            pygame.draw.rect(screen, color, pygame.Rect(x, 100+-r.getH(), 1, 1))
+            pygame.display.flip()
+
+
 
 '''
         clock = pygame.time.Clock()
