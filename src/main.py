@@ -27,7 +27,7 @@ class Main:
             pygame.display.flip()
             
         oldH = 100     
-        for x in range(200, 1200):
+        for x in range(200, 1800):
             time.sleep(0.01) 
             print(x)
             r.tick()

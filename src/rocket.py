@@ -10,14 +10,15 @@ class Rocket():
 
     def __init__(self):
 
-        self.mass = 1500 # kg
-        self.fuelMass = 100 # kg
-        self.maxAcceleration = 100 # m/s^2 at 100% throttle
+        self.mass = 10000 # kg
+        self.fuelMass = 5000 # kg
+        self.fuelBurnSpeed = 1000 # kg/sec at 100% throttle
         self.throttle = 0 # percent
+        self.maxF = 200000 # Jouls at 100% throttle
         self.askedThrottle = 0 # percent
         self.a = 0 # actual acceleration, m/s^2
         self.v = 0 # vertical velocity, m/s
-        self.h = 100 # height, m
+        self.h = 1000 # height, m
         
         self.previousTimestamp = time.time()
         
@@ -42,9 +43,18 @@ class Rocket():
         dt = timestamp - self.previousTimestamp
         
         print ("dt: ", dt)
+        
+        # burnt fuel
+        bf = self.fuelBurnSpeed / 100 * self.throttle * dt
+        
+        # mass
+        self.mass -= bf
 
-        # acceleration     
-        self.a = GRAVITY + self.maxAcceleration / 100 * self.throttle  
+        # engine force   
+        f = self.maxF / 100 * self.throttle
+          
+        # acceleration 
+        self.a = GRAVITY + f / self.mass  
         
         # distance
         dh = self.v * dt + self.a * dt * dt / 2
@@ -68,9 +78,10 @@ class Rocket():
         
         print ("self.throttle: ", self.throttle)
         print ("dh: ", dh)
-        print ("self.a: ", self.a)
-        print ("self.v: ", self.v)
-        print ("self.h: ", self.h)
+        print ("a: ", self.a)
+        print ("v: ", self.v)
+        print ("h: ", self.h)
+        print ("m: ", self.mass)
         print ("================================= ")
         
         self.previousTimestamp = timestamp
