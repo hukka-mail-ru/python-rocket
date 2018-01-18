@@ -16,13 +16,36 @@ class Main:
         y = 30 
         
         v = ms.Value('d', 0.0)
+        a = ms.Value('d', 0.0)
+        h = ms.Value('d', 0.0)
+        asked = ms.Value('i', 0)
         
         #parent_conn, rocket_conn = ms.Pipe()
-        p = ms.Process(target=rocket.startRocket, args=(v,))
+        p = ms.Process(target=rocket.startRocket, args=(v,a,h, asked))
         p.start()
  
-        for i in range(1, 5):
-            print("V:", v.value)   # prints "[42, None, 'hello']"
+      #  oldH = 1000  
+        for i in range(1, 10):
+            print("V:", v.value)   
+            print("a:", a.value)   
+            print("h:", h.value)   
+            
+            if(a.value > 5):
+                print("too fast")
+                asked.value = 0
+            else:                            
+                if(a.value < 0):
+                    if(v.value < -3):
+                        asked.value = 100
+                    else:
+                        asked.value = 0
+                                
+                elif(a.value > 0):
+                    if(v.value > -3):
+                        asked.value = 0
+                    else:
+                        asked.value = 100
+            
             time.sleep(1)
 
         p.join()

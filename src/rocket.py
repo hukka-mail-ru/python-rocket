@@ -1,4 +1,5 @@
 import time
+import multiprocessing as ms
 
 MIN_THROTTLE = 0   # percent
 MAX_THROTTLE = 100 # percent
@@ -87,13 +88,21 @@ class Rocket():
         
         self.previousTimestamp = timestamp
    
-   
-def startRocket(v):
+
+  
+     
+def startRocket(v: ms.Value, 
+                a: ms.Value, 
+                h: ms.Value,
+                asked: ms.Value):
     r = Rocket()
     
-    for x in range(0, 500):
+    for x in range(0, 1000):
         r.tick()
         v.value = r.getV()
+        a.value = r.getA()
+        h.value = r.getH()
+        r.askThrottle(asked.value)
         time.sleep(0.01) 
       
     print("Done") 
