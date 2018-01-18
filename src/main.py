@@ -1,19 +1,33 @@
 import time
 import rocket
 import pygame
+import multiprocessing as ms
 
 class Main:
 
 
    
     def start(self):
-        pygame.init()
-        screen = pygame.display.set_mode((1200, 600))
+        #pygame.init()
+        #screen = pygame.display.set_mode((1200, 600))
         done = False
         is_blue = True
         x = 30
         y = 30 
         
+        v = ms.Value('d', 0.0)
+        
+        #parent_conn, rocket_conn = ms.Pipe()
+        p = ms.Process(target=rocket.startRocket, args=(v,))
+        p.start()
+ 
+        for i in range(1, 5):
+            print("V:", v.value)   # prints "[42, None, 'hello']"
+            time.sleep(1)
+
+        p.join()
+           
+        '''
         r = rocket.Rocket();
         
         for x in range(0, 200):
@@ -53,7 +67,7 @@ class Main:
             pygame.draw.rect(screen, color, pygame.Rect(x, 100+-r.getH(), 1, 1))
             pygame.display.flip()
 
-
+'''
 
 '''
         clock = pygame.time.Clock()

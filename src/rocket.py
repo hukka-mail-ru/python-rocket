@@ -1,9 +1,9 @@
 import time
-import math
 
 MIN_THROTTLE = 0   # percent
 MAX_THROTTLE = 100 # percent
 GRAVITY = -9.8 # G, m/s^2
+
 
 class Rocket():
     
@@ -42,8 +42,6 @@ class Rocket():
         timestamp = time.time()
         dt = timestamp - self.previousTimestamp
         
-        print ("dt: ", dt)
-        
         # burnt fuel
         bf = self.fuelBurnSpeed / 100 * self.throttle * dt
         
@@ -76,6 +74,8 @@ class Rocket():
         elif(self.throttle > MAX_THROTTLE):
             self.throttle = MAX_THROTTLE
         
+        ''' 
+        print ("dt: ", dt)
         print ("self.throttle: ", self.throttle)
         print ("dh: ", dh)
         print ("a: ", self.a)
@@ -83,6 +83,18 @@ class Rocket():
         print ("h: ", self.h)
         print ("m: ", self.mass)
         print ("================================= ")
+        '''
         
         self.previousTimestamp = timestamp
-        
+   
+   
+def startRocket(v):
+    r = Rocket()
+    
+    for x in range(0, 500):
+        r.tick()
+        v.value = r.getV()
+        time.sleep(0.01) 
+      
+    print("Done") 
+     
