@@ -25,12 +25,13 @@ class Main:
         p.start()
  
       #  oldH = 1000  
-        for i in range(1, 10):
-            print("V:", v.value)   
-            print("a:", a.value)   
-            print("h:", h.value)   
+        for i in range(1, 200):
             
-            if(a.value > 5):
+           # print("V:", v.value)   
+            print("a.value:", a.value)   
+            #print("h:", h.value)   
+            
+            if(a.value >2):
                 print("too fast")
                 asked.value = 0
             else:                            
@@ -46,8 +47,8 @@ class Main:
                     else:
                         asked.value = 100
             
-            time.sleep(1)
-
+            time.sleep(0.1)
+        asked.value = 0
         p.join()
            
         '''
